@@ -18,9 +18,9 @@ def main():
     af[6,6]=4
     af[10,10]=5
 
-    t0 = time.clock()
+    t0 = time.perf_counter()  
     mv = solver(ai,af,0)
-    t1 = time.clock()
+    t1 = time.perf_counter()
     print(t1-t0)
     print(mv.shape)
 
