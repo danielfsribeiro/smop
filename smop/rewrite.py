@@ -3,8 +3,12 @@
 
 import copy
 
-from . import node
-from . node import extend
+if __package__ is None or __package__ == '':
+    import node
+    from node import extend
+else:
+    from . import node
+    from . node import extend
 
 def graphviz(t, fp, func_name):
     fp.write("digraph %s {\n" % func_name)

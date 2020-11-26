@@ -1,7 +1,7 @@
 # SMOP -- Simple Matlab/Octave to Python compiler
 # Copyright 2011-2016 Victor Leikehman
 
-from __future__ import print_function
+#from __future__ import print_function
 
 import py_compile
 import tempfile
@@ -12,11 +12,18 @@ import os
 import traceback
 from os.path import basename, splitext
 
-from . import options
-from . import parse
-from . import resolve
-from . import backend
-from . import version
+if __package__ is None or __package__ == '':
+    import options
+    import parse
+    import resolve
+    import backend
+    import version
+else:
+    from . import options
+    from . import parse
+    from . import resolve
+    from . import backend
+    from . import version
 
 def print_header(fp):
     if options.no_header:
@@ -73,6 +80,8 @@ def main():
                     fp.write(s)
             else:
                 fp.write(s)
+                #fp.close()
+
         except KeyboardInterrupt:
             break
         except:

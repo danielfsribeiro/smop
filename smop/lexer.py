@@ -5,7 +5,11 @@ import sys
 import re
 import ply.lex as lex
 from ply.lex import TOKEN
-from . import options
+
+if __package__ is None or __package__ == '':
+    import options
+else:
+    from . import options
 
 
 tokens = [

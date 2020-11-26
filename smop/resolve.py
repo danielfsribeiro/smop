@@ -21,8 +21,12 @@ It is used in if_stmt, for_stmt, and while_stmt.
 import copy
 import networkx as nx
 
-from . import node
-from . node import extend
+if __package__ is None or __package__ == '':
+    import node
+    from node import extend
+else:
+    from . import node
+    from . node import extend
 
 def as_networkx(t):
     G = nx.DiGraph()
@@ -51,7 +55,8 @@ def resolve(t, symtab=None, fp=None, func_name=None):
     G = as_networkx(t)
     for n in G.nodes():
         print(n.__class__.__name__)
-        u = G.node[n]["ident"]
+        #u = G.node[n]["ident"]
+        u = G.nodes[n]["ident"]
         if u.props:
             pass
         elif G.out_edges(n) and G.in_edges(n):
@@ -63,7 +68,8 @@ def resolve(t, symtab=None, fp=None, func_name=None):
             u.props = "R" # ref
         else:
             u.props = "F" # ???
-        G.node[n]["label"] = "%s\\n%s" % (n, u.props)
+        #G.node[n]["label"] = "%s\\n%s" % (n, u.props)
+        G.nodes[n]["label"] = "%s\\n%s" % (n, u.props)
     return G
 
 def do_resolve(t,symtab):

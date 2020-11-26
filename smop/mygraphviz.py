@@ -2,9 +2,15 @@ import sys
 import pickle
 import networkx as nx
 
-from . import node
-from . import resolve
-from . node import extend
+if __package__ is None or __package__ == '':
+    import node
+    import resolve
+    from node import extend
+
+else:
+    from . import node
+    from . import resolve
+    from . node import extend
  
 @extend(node.node)
 def _graphviz(self,fp):
