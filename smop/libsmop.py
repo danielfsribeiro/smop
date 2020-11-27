@@ -748,6 +748,7 @@ def setdiff(a, b):
 
 def regexp(string, re_expr, **kwargs):
     expression = re.compile(re_expr)
+    # TODO: add more methods
     methods = {
         'match': getattr(expression, 'match'),
         'split': getattr(expression, 'split')
@@ -762,7 +763,23 @@ def regexp(string, re_expr, **kwargs):
     for kw in keys:
         result.append(cellarray(methods[kw](string)))
 
+    if len(result) == 1:
+        return result[0]
+    elif len(result) >1:
+        return result
+    else:
+        return None
+
+def regexprep(string, re_expr, replace, **kwargs):
+    # TODO: add kwargs
+    expression = re.compile(re_expr)
+    result = expression.sub(replace, string)
+
     return result
 
+def num2str(a):
+    return str(a)
 
+def isnan(a):
+    numpy.isnan(a)
 ### End Daniel additions of functions
