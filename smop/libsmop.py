@@ -4,12 +4,13 @@
 # MIT license
 
 import builtins
+import re
 
 import numpy
-from numpy import sqrt,prod,exp,log,dot,multiply,inf
+from numpy import sqrt, prod, exp, log, dot, multiply, inf, setdiff1d
 from numpy.fft import fft2
 from numpy.linalg import inv
-from numpy.linalg import qr  as _qr 
+from numpy.linalg import qr as _qr 
 try:
     from scipy.linalg import schur as _schur
 except ImportError:
@@ -523,7 +524,7 @@ def isscalar(a):
 
 def length(a):
     try:
-        return __builtin__.max(np.asarray(a).shape)
+        return builtins.max(np.asarray(a).shape)
     except ValueError:
         return 1
 
@@ -738,3 +739,30 @@ if __name__ == "__main__":
     doctest.testmod()
 
 # vim:et:sw=4:si:tw=60
+
+
+### Start Daniel additions of functions
+
+def setdiff(a, b):
+    return matlabarray(setdiff1d(a, b))    
+
+def regexp(string, re_expr, **kwargs):
+    expression = re.compile(re_expr)
+    methods = {
+        'match': getattr(expression, 'match'),
+        'split': getattr(expression, 'split')
+    }
+    
+    result = []
+    # Get ordered list of arguments
+    keys = list(kwargs)
+    print("DEBUG: ", keys)
+    # Get the method associated with expression object
+    # Call method
+    for kw in keys:
+        result.append(cellarray(methods[kw](string)))
+
+    return result
+
+
+### End Daniel additions of functions
