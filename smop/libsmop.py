@@ -624,21 +624,24 @@ def randn(*args,**kwargs):
     except:
         pass
 
+#Daniel: Added order='F' in asanyarray, reshape
 def ravel(a):
-    return np.asanyarray(a).reshape(-1,1)
+    return np.asanyarray(a, order='F').reshape(-1,1, order='F')
 
+#Daniel: Added order='F' in asarray, ravel
 def roots(a):
+    return matlabarray(np.roots(np.asarray(a,order='F').ravel(order='F')))
 
-    return matlabarray(np.roots(np.asarray(a).ravel()))
-
+#Daniel: Added order='F' in asanyarray
 def round(a):
-    return np.round(np.asanyarray(a))
+    return np.round(np.asanyarray(a, order='F'))
 
 def rows(a):
     return np.asarray(a).shape[0]
 
+#Daniel: Added order='F' in asarray
 def schur(a):
-    return matlabarray(_schur(np.asarray(a)))
+    return matlabarray(_schur(np.asarray(a, order='F')))
 
 def size(a, b=0, nargout=1):
     """
@@ -680,6 +683,8 @@ def strread(s, format="", nargout=1):
 def strrep(a,b,c):
     return str(a).replace(str(b),str(c))
 
+#Daniel: Check if no problem with dimensions ('C' vs 'F')
+#TODO
 def sum(a, dim=None):
     if dim is None:
         return np.asanyarray(a).sum()
