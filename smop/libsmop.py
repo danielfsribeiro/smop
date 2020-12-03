@@ -26,6 +26,8 @@ except:
 import unittest
 from scipy.special import gamma
 from numpy import rint as fix
+# Daniel imports
+from scipy import sparse
 
 def isvector_or_scalar(a):
     """
@@ -624,24 +626,20 @@ def randn(*args,**kwargs):
     except:
         pass
 
-#Daniel: Added order='F' in asanyarray, reshape
 def ravel(a):
-    return np.asanyarray(a, order='F').reshape(-1,1, order='F')
+    return np.asanyarray(a).reshape(-1,1)
 
-#Daniel: Added order='F' in asarray, ravel
 def roots(a):
-    return matlabarray(np.roots(np.asarray(a,order='F').ravel(order='F')))
+    return matlabarray(np.roots(np.asarray(a).ravel()))
 
-#Daniel: Added order='F' in asanyarray
 def round(a):
-    return np.round(np.asanyarray(a, order='F'))
+    return np.round(np.asanyarray(a))
 
 def rows(a):
     return np.asarray(a).shape[0]
 
-#Daniel: Added order='F' in asarray
 def schur(a):
-    return matlabarray(_schur(np.asarray(a, order='F')))
+    return matlabarray(_schur(np.asarray(a)))
 
 def size(a, b=0, nargout=1):
     """
@@ -787,4 +785,10 @@ def num2str(a):
 
 def isnan(a):
     numpy.isnan(a)
+
+def full(a):
+    if sparse.issparse(a):
+        return matlabarray(a.toarray())
+    else:
+        return matlabarray(a)
 ### End Daniel additions of functions
