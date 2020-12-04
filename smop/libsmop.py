@@ -745,9 +745,29 @@ if __name__ == "__main__":
 
 
 ### Start Daniel additions of functions
+# numpy dot may not work well on scipy sparse matrices
+def dot(a, b, out=None):
+    if sparse.issparse(a):
+        local_a = a.toarray()
+    else:
+        local_a = a
+    if sparse.issparse(b):
+        local_b = b.toarray()
+    else:
+        local_b = b
+    return matlabarray(np.dot(local_a, local_b, out))
 
-def setdiff(a, b):
-    return matlabarray(setdiff1d(a, b))    
+def full(a):
+    if sparse.issparse(a):
+        return matlabarray(a.toarray())
+    else:
+        return matlabarray(a)
+
+def isnan(a):
+    numpy.isnan(a)
+
+def num2str(a):
+    return str(a)
 
 def regexp(string, re_expr, **kwargs):
     expression = re.compile(re_expr)
@@ -780,15 +800,7 @@ def regexprep(string, re_expr, replace, **kwargs):
 
     return result
 
-def num2str(a):
-    return str(a)
+def setdiff(a, b):
+    return matlabarray(setdiff1d(a, b))    
 
-def isnan(a):
-    numpy.isnan(a)
-
-def full(a):
-    if sparse.issparse(a):
-        return matlabarray(a.toarray())
-    else:
-        return matlabarray(a)
 ### End Daniel additions of functions

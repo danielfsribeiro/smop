@@ -858,7 +858,8 @@ def parse(buf):
 
     if "P" in options.debug:
         for i, pi in enumerate(p):
-            print(i, pi.__class__.__name__, pi._backend())
+            # Daniel: Comment out this part
+            #print(i, pi.__class__.__name__, pi._backend())
 
 #    for i in range(len(p)):
 #        if isinstance(p[i], node.func_stmt):
