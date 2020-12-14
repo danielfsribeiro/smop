@@ -370,15 +370,15 @@ def arange(start,stop,step=1,**kwargs):
                                  stop+expand_value,
                                  step,
                                  **kwargs).reshape(1,-1),**kwargs)
-def concat(args):
+def concat(args, axis=None):
     """
     >>> concat([1,2,3,4,5] , [1,2,3,4,5]])
     [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
     """
-    import pdb
-    pdb.set_trace()
+    #import pdb
+    #pdb.set_trace()
     t = [matlabarray(a) for a in args]
-    return np.concatenate(t)
+    return np.concatenate(t, axis=axis)
 
 def ceil(a):
     return numpy.ceil(a)
