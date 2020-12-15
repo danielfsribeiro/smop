@@ -744,7 +744,7 @@ if __name__ == "__main__":
 # vim:et:sw=4:si:tw=60
 
 
-### Start Daniel additions of functions
+### Start Daniel Ribeiro additions of functions
 # numpy dot may not work well on scipy sparse matrices
 def dot(a, b, out=None):
     if sparse.issparse(a):
@@ -803,4 +803,4 @@ def regexprep(string, re_expr, replace, **kwargs):
 def setdiff(a, b):
     return matlabarray(setdiff1d(a, b))    
 
-### End Daniel additions of functions
+### End Daniel Ribeiro additions of functions
