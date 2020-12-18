@@ -646,7 +646,7 @@ def size(a, b=0, nargout=1):
     >>> size(zeros(3,3)) + 1
     matlabarray([[4, 4]])
     """
-    s = np.asarray(a).shape
+    s = np.asarray(a)[:, None].shape
     if s is ():
         return 1 if b else (1,)*nargout
     # a is not a scalar
@@ -654,7 +654,8 @@ def size(a, b=0, nargout=1):
         if b:
             return s[b-1]
         else:
-            return matlabarray(s) if nargout <= 1 else s
+            #return matlabarray(s) if nargout <= 1 else s
+            return s
     except IndexError:
         return 1
 
@@ -769,7 +770,7 @@ def isnan(a):
 def num2str(a):
     return str(a)
 
-def regexp(string, re_expr, **kwargs):
+def regexp(string, re_expr, *args):
     expression = re.compile(re_expr)
     # TODO: add more methods
     methods = {
@@ -779,7 +780,7 @@ def regexp(string, re_expr, **kwargs):
     
     result = []
     # Get ordered list of arguments
-    keys = list(kwargs)
+    keys = args
     print("DEBUG: ", keys)
     # Get the method associated with expression object
     # Call method
